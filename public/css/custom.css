@@ -1,0 +1,16 @@
+ ul li{
+	padding: 10px;
+}
+nav ul li a{
+	text-transform: capitalize;
+	font-weight: bold;
+}
+nav ul li a:hover{
+	text-transform: capitalize;
+	font-weight: bold;
+	box-shadow: 2px;
+	padding:5px;
+}
+body{
+	background-color: white;
+}
