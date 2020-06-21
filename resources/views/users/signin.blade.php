@@ -12,7 +12,14 @@
 			    <label>Password</label>
 			    <input type="password" name="password" placeholder="*******" class="form-control">
 			    <br>
-			    <button class="btn btn-success btn-md" type="submit">login</button>
+			    <div class="form-row">
+			    	<div class="col">
+			    		<button class="btn btn-success btn-md" type="submit">login</button>
+			    	</div>
+			    	<div class="col">
+			    		<p>Don't have an account? <a href="{{ route('user.signup') }}">signup</a></p>
+			    	</div>
+				</div>
 			    {{ csrf_field() }}
 			</form>
 		  </div>

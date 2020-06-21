@@ -1,13 +1,13 @@
 @extends('layouts.default')
 @section('content')
-<h4>Dashboard</h4>
+<h4>Dashboard&nbsp;&nbsp;<small><a href="{{ route('user.allplans') }}" class="btn btn-sm btn-primary">Go to bundle plans&nbsp;<span class="fa fa-angle-right"></span><span class="fa fa-angle-right"></span></a></small></h4>
 <hr>
 <div class="my-3 p-3 bg-white rounded shadow-sm">
 <div class="media">
   <img src="{{ asset('images/8.png') }}" class="mr-3" alt="...">
   <div class="media-body" style="font-size: 110%;">
     <h3 class="mt-0">Welcome {{ Auth::user()->name }}</h3>
-    We are doing our best to make sure we are keeping you connected. HewaNet offers Home WiFi also. Feel free to <a href="#">Contact us</a> for any enquiries.
+    We are doing our best to make sure we are keeping you connected. HewaNet offers Home WiFi also. Feel free to <a href = "mailto: info@hewanet.co.ke?subject=Inquiry">Contact us</a> for any enquiries.
     <hr>
     <strong>Username: </strong>{{ Auth::user()->username }}<br>
     <strong>Password: </strong>{{ Auth::user()->cleartextpassword }}
@@ -24,4 +24,5 @@
       <a href="#">All updates</a>
     </small>
 </div>
+
 @endsection

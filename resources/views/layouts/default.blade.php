@@ -10,8 +10,6 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Scripts -->
-    {{-- <script src="{{ asset('js/app.js') }}" defer></script> --}}
-    <script src="{{ asset('utls/js/argon.js') }}" type="text/javascript"></script>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -22,7 +20,7 @@
     <link href="{{ asset('utls/css/argon.css') }}" rel="stylesheet">
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/custom.css') }}" rel="stylesheet">
-
+@yield('styles')
 
 </head>
 <body>
@@ -30,14 +28,18 @@
         <div class="row">
             <div class="col-md-12 mt-3 d-flex justify-content-center">
                 <a href="{{ route('user.index') }}">
-                    <img src="{{ asset('images/5.png') }}" height="100" width="100">
+                    <img src="{{ asset('images/2.png') }}" height="100" width="100">
                 </a>
             </div>
           </div>
           <div class="row">
             <div class="col-md-12 mt-2">
                <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm">
+                 @if(isset(Auth::user()->username))
                   <a class="navbar-brand" href="{{ route('home') }}"><span class="fa fa-home fa-2x"></span></a>
+                  @else
+                  <a class="navbar-brand" href="{{ route('user.index') }}"><span class="fa fa-home fa-2x"></span></a>
+                  @endif
                   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                   </button>
@@ -49,9 +51,7 @@
                       
                     </ul>
                     <ul class="navbar-nav ml-auto">
-                          <li class="nav-item">
-                            <a class="nav-link" href="{{ route('user.credentials') }}"><i class="fa fa-search"></i> Get Credentials</a>
-                          </li>
+                          
                           <li class="nav-item">
                             <a class="nav-link" href="{{ route('user.balance') }}"><i class="fa fa-search"></i> check balance</a>
                           </li>
@@ -63,9 +63,18 @@
                           <li class="nav-item">
                             <a class="nav-link" href="{{ route('login') }}"><i class="fa fa-sign-in"></i> Sign in</a>
                           </li>
+                          <li class="nav-item">
+                            <a class="nav-link" href="{{ route('user.credentials') }}"><i class="fa fa-search"></i> Get Credentials</a>
+                          </li>
                           @else
                           <li class="nav-item">
-                            <a class="nav-link" href="{{ route('user.credentials') }}"><i class="fa fa-user"></i> Purchase Bundle Plan</a>
+                            <a class="nav-link" href="{{ route('user.allplans') }}"><i class="fa fa-eye"></i> See Bundle Plans</a>
+                          </li>
+                          <li class="nav-item">
+                            <a class="nav-link" href="{{ route('user.changephone') }}"><i class="fa fa-phone"></i> Change Phone</a>
+                          </li>
+                          <li class="nav-item">
+                            <a class="nav-link" href="{{ route('user.credentials') }}"><i class="fa fa-file"></i> Purchase Bundle Plan</a>
                           </li>
                           <li class="nav-item">
                           <div class="dropdown">
@@ -85,7 +94,7 @@
             </div>
         </div>
 <hr>
-        <main class="bg-light py-4">
+        <main class="py-4">
             @yield('content')
         </main>
     </div>
@@ -97,7 +106,9 @@
     </footer>
     </div>
     <script src="{{ asset('js/app.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('utls/js/argon.js') }}" type="text/javascript"></script>
     @include('sweetalert::alert')
     @yield('scripts')
+
 </body>
 </html>

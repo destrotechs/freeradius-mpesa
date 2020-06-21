@@ -2,14 +2,18 @@
 @section('content')
 <nav aria-label="breadcrumb">
   <ol class="breadcrumb">
+  	@if(!isset(Auth::user()->username))
     <li class="breadcrumb-item" aria-current="page">Get Credentials</li>
+  	@else
+ 	<li class="breadcrumb-item" aria-current="page">Purchase Bundle plan</li>
+  	@endif
   </ol>
 </nav>
 	<div class="card card-body">
 		<div class="err"></div>
 		<form id="credform">
 			<label>Phone Number</label>
-			<input type="text" name="phone" class="form-control" placeholder="e.g 0712345678" value="@if(isset(Auth::user()->phone ))0{{ Auth::user()->phone }}@else {{ 'phone' }}@endif">
+			<input type="text" name="phone" class="form-control" placeholder="e.g 0712345678" value="@if(isset(Auth::user()->phone ))0{{ Auth::user()->phone }}@else {{ '' }}@endif">
 			<small>This is the MPesa registered number to be charged</small><br>
 			<label>Bundle Plan</label>
 			<div class="input-group mb-3">
@@ -17,13 +21,24 @@
 			    <option value="">Choose bundle plan...</option>
 			    <option value="50mbs">50MBs @ Kes 10/-</option>
 			    <option value="100mbs">100MBs @ Kes 20/-</option>
-			    <option value="500mbs">500MBs @ Kes 100/-</option>
+			    <option value="250mbs">250MBs @ Kes 40/-</option>
+			    <option value="500mbs">500MBs @ Kes 50/-</option>
+			    <option value="1gb">1 GB @ Kes 100/-</option>
+			    <option value="2gb">2 GB @ Kes 200/-</option>
+			    <option value="5gb">5 GB @ Kes 500/-</option>
+			    <option value="monthlyplan">1 Month unlimited @ Kes 1500/-</option>
 			  </select>
 			</div>
 			<label>Amount</label>
 			<input type="text" name="amount" readonly="readonly" class="form-control amount" value="0">
 			<hr>
-			<button class="btn btn-success btn-md" type="submit">Send Credentials</button><small class="d-block text-right" id="timer"></small>
+			@if(!isset(Auth::user()->username))
+			<button class="btn btn-success btn-md" type="submit">Send Credentials</button>			
+			<small class="d-block text-right" id="timer"></small>
+			@else
+			<button class="btn btn-success btn-md" type="submit">Buy Now</button>			
+			<small class="d-block text-right" id="timer"></small>
+			@endif
 			{{ csrf_field() }}
 		</form>
 	</div>
@@ -55,7 +70,7 @@
 						if(data=='error'){
 							$("#timer").empty().removeClass('d-block').fadeOut();
 						$(".btn-danger").empty().html('Failed!');
-						$(".err").html("Your transaction could not be completed, try again").addClass("alert alert-danger p-3");
+						$(".err").html("Your transaction could not be completed, check your phone number and try again").addClass("alert alert-danger p-3");
 						}else{
 							$("#timer").empty().removeClass('d-block').fadeOut();;
 							$(".btn-danger").empty().html('completed').removeClass('btn-danger').addClass("btn-success");
@@ -72,12 +87,24 @@
 		})
 		$("#plan").change(function(){
 			var plan=$(this).val();
-			if (plan=='50mb') {
+			if (plan=='50mbs') {
 				$(".amount").val(10);
-			}else if (plan=='100mb') {
+			}else if (plan=='100mbs') {
 				$(".amount").val(20);
-			}else if (plan=='500mb') {
+			}else if (plan=='250mbs') {
+				$(".amount").val(40);
+			}
+			else if (plan=='500mbs') {
+				$(".amount").val(50);
+			}
+			else if (plan=='1gb') {
 				$(".amount").val(100);
+			}else if (plan=='2gb') {
+				$(".amount").val(200);
+			}else if (plan=='5gb') {
+				$(".amount").val(500);
+			}else if (plan=='monthlyplan') {
+				$(".amount").val(1500);
 			}
 		})
 		function startTimer() {

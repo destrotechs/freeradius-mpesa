@@ -18,6 +18,7 @@ Route::get('/credentials','defaultUserController@credentials')->name('user.crede
 Route::post('/credentials','paymentController@postPayToGetCredentials')->name('user.post.credentials');
 Route::get('/bundlebalance','defaultUserController@bundlebalance')->name('user.balance');
 Route::post('/bundlebalance','defaultUserController@fetchBalance')->name('user.check.balance');
+Route::get('/allplans','defaultUserController@getAllPlans')->name('user.allplans');
 
 Route::group(['middleware'=>'guest'], function(){
 	Route::post('/signup','defaultUserController@postSignup')->name('user.post.signup');
@@ -29,6 +30,8 @@ Route::group(['middleware'=>'guest'], function(){
 Route::group(['middleware'=>'auth'], function(){
 	Route::get('/home','HomeController@getIndex')->name('home');
 	Route::get('/logout','HomeController@getLogout')->name('customer.logout');
+	Route::get('/changephone','HomeController@getChangePhone')->name('user.changephone');
+	Route::post('/changephone','HomeController@postChangePhone')->name('user.post.changephone');
 	});
 //Auth::routes();
 

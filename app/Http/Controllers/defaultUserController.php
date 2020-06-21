@@ -12,7 +12,13 @@ use App\Customer;
 class defaultUserController extends Controller
 {
     
-    public function index(){
+    public function index(Request $request){
+        if($request->session()->has('success_message')){
+            Alert::success("success",$request->session()->get('success_message'));  
+        }
+        if($request->session()->has('error')){
+            Alert::error($request->session()->get('error'));  
+        }
     	return view('users.index');
     }
     public function credentials(){
@@ -81,27 +87,39 @@ class defaultUserController extends Controller
     }
     public function fetchBalance(Request $request){
         $username=$request->get('username');
-        $plan=$request->get('plan');
-        $bundle=DB::table('radusergroup')->where([['username','=',$username],['groupname','=',$plan]])->get();
-        if(count($bundle)==0){
-            echo "error";
-        }else{
-            if($plan=='50mb'){
-                $totalbytesbgt=(50*1024*1024);
-                $totalbytesused=DB::table('radacct')->sum('AcctInpuOctets')->where('username','=',$username);
-                $totalmbsbalance=(($totalbytesbgt-$totalbytesused)/(1024*1024));
-                echo '<tr><td>'.$totalbytesbgt/(1024*1024).'</td><td>'.$totalbytesused/(1024*1024).'</td><td>'.$totalmbsbalance.'</td></tr>';
-            }else if($plan=='100mb'){
-                $totalbytesbgt=(100*1024*1024);
-                $totalbytesused=DB::table('radacct')->sum('AcctInpuOctets')->where('username','=',$username);
-                $totalmbsbalance=(($totalbytesbgt-$totalbytesused)/(1024*1024));
-                echo '<tr><td>'.$totalbytesbgt/(1024*1024).'</td><td>'.$totalbytesused/(1024*1024).'</td><td>'.$totalmbsbalance.'</td></tr>';
-            }else if($plan=='500mb'){
-                $totalbytesbgt=(500*1024*1024);
-                $totalbytesused=DB::table('radacct')->sum('AcctInputOctets')->where('username','=',$username);
-                $totalmbsbalance=(($totalbytesbgt-$totalbytesused)/(1024*1024));
-                echo '<tr><td>'.$totalbytesbgt/(1024*1024).'</td><td>'.$totalbytesused/(1024*1024).'</td><td>'.$totalmbsbalance.'</td></tr>';
+
+        $user=DB::table('radcheck')->where('username','=',$username)->get();
+        $mbsused=0;
+        $totalbytesrecord=0;
+        $remainder=0;
+        if(count($user)>0){
+            $userdata=DB::table('radcheck')->where([['username','=',$username],['attribute','=','Max-All-MB']])->get();
+            foreach ($userdata as $key => $data) {
+                $totalbytesrecord=$data->value;
             }
+            $totaldownbs=1024;
+            //DB::table('radacct')->where('username','=',$username)->sum('AcctInputOctets');
+            $totalupbs=1024;
+            //DB::table('radacct')->where('username','=',$username)->sum('AcctOutputOctets');
+            $mbsused=($totaldownbs+$totalupbs);
+
+            $totalbytesrecord=($totalbytesrecord/(1024*1024));
+            $mbsused=2;
+            $remainder=$totalbytesrecord-$mbsused;
+
+             echo '<tr><td>'.round($totalbytesrecord,2).' MBs</td><td>'.round($mbsused,2).' MBs</td><td>'.round($remainder,2).' MBs</td></tr>';
+        }else{
+            echo "error";
         }
+        
+    }
+    public function getAllPlans(Request $request){
+         if($request->session()->has('success_message')){
+            Alert::success("success",$request->session()->get('success_message'));  
+        }
+        if($request->session()->has('error')){
+            Alert::error($request->session()->get('error'));  
+        }
+        return view('users.bundleplans');
     }
 }

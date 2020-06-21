@@ -1,11 +1,11 @@
 @extends('layouts.default')
 @section('content')
-<nav aria-label="breadcrumb">
-  <ol class="breadcrumb">
-    <li class="breadcrumb-item active" aria-current="page">User Signup</li>
-  </ol>
-</nav>
-<div class="card card-body">
+
+<div class="row">
+<div class="col-md-12 d-flex justify-content-center">
+<div class="card" style="width: 40rem;">
+	<div class="card-body">
+		<div class="card-title"><h4>Sign up</h4></div><hr>
 	<form class="form-md" method="post" action="{{ route('user.post.signup') }}">
 		{{ csrf_field() }}
 		@if (session('message'))
@@ -51,7 +51,17 @@
 			  @error('password')
 				    <div class="text-danger">{{ $message }}</div>
 				@enderror
-			  <button type="submit" name="signup" class="btn btn-success signup">Signup</button>
+			  <div class="form-row">
+			    	<div class="col">
+			    		<button class="btn btn-success signup" type="submit">Signup</button>
+			    	</div>
+			    	<div class="col">
+			    		<p>Already have an account? <a href="{{ route('login') }}">login</a></p>
+			    	</div>
+				</div>
 			</form>
+</div>
+</div>
+</div>
 </div>
 @endsection

@@ -27,7 +27,7 @@ class Mpesa extends Model
 		$partyA=$phone;
 		$partyB='174379';
 		$callbackurl="https://hewanet.co.ke/churchcallback/";
-		$accountreference="Morris mbae";
+		$accountreference="HEWANET";
 		$transactiondesc="plan payment";
 		$remark='pay subscription';
 		$url='https://sandbox.safaricom.co.ke/mpesa/stkpush/v1/processrequest';
@@ -63,6 +63,8 @@ class Mpesa extends Model
 		$mycode=json_decode($curl_response,true)['ResponseCode'];
 		if($mycode==0){
 			return json_decode($curl_response,true)['CheckoutRequestID'];
+		}else{
+			return 'error';
 		}
 	}
 	public static function querySTKPush($token,$checkoutid){ 
