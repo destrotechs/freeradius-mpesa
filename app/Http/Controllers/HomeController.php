@@ -66,4 +66,9 @@ class HomeController extends Controller
             return redirect()->back()->with('error','No user was found with the current phone number');
         }
     }
+    public function getTransactions(Request $request){
+        $username=Auth::user()->username;
+        $transactions=DB::table('transactions')->where('username','=',$username)->get();
+        return view('users.transactions',compact('transactions'));
+    }
 }

@@ -20,6 +20,7 @@ Route::get('/bundlebalance','defaultUserController@bundlebalance')->name('user.b
 Route::post('/bundlebalance','defaultUserController@fetchBalance')->name('user.check.balance');
 Route::get('/allplans','defaultUserController@getAllPlans')->name('user.allplans');
 
+
 Route::group(['middleware'=>'guest'], function(){
 	Route::post('/signup','defaultUserController@postSignup')->name('user.post.signup');
 	Route::post('/signin','defaultUserController@postSignin')->name('user.post.signin');
@@ -32,6 +33,7 @@ Route::group(['middleware'=>'auth'], function(){
 	Route::get('/logout','HomeController@getLogout')->name('customer.logout');
 	Route::get('/changephone','HomeController@getChangePhone')->name('user.changephone');
 	Route::post('/changephone','HomeController@postChangePhone')->name('user.post.changephone');
+	Route::get('/transactions','HomeController@getTransactions')->name('user.transactions');
 	});
 //Auth::routes();
 

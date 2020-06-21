@@ -68,11 +68,15 @@
                           </li>
                           @else
                           <li class="nav-item">
-                            <a class="nav-link" href="{{ route('user.allplans') }}"><i class="fa fa-eye"></i> See Bundle Plans</a>
-                          </li>
-                          <li class="nav-item">
                             <a class="nav-link" href="{{ route('user.changephone') }}"><i class="fa fa-phone"></i> Change Phone</a>
                           </li>
+                          <li class="nav-item">
+                            <a class="nav-link" href="{{ route('user.transactions') }}"><i class="fa fa-eye"></i> Customer Transactions</a>
+                          </li>
+                          <li class="nav-item">
+                            <a class="nav-link" href="{{ route('user.allplans') }}"><i class="fa fa-eye"></i> See Bundle Plans</a>
+                          </li>
+                          
                           <li class="nav-item">
                             <a class="nav-link" href="{{ route('user.credentials') }}"><i class="fa fa-file"></i> Purchase Bundle Plan</a>
                           </li>
