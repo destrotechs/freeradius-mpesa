@@ -10,7 +10,24 @@
   </ol>
 </nav>
 	<div class="card card-body">
-		<div class="err"></div>
+		
+		<div class="procpar" style="display: none;">
+		<div class="card" id="proc">
+			<div class="card-body">
+				<center>
+					<h4>Processing...</h4>
+					<hr>
+					<div class="loader"></div>
+					<div class="err"></div>
+					<p id="timer"></p>
+					<hr>
+					<button class="btn btn-info btn-md" id="retry" style="display: none;">Retry</button>
+					<hr>
+					<h5>You will be redirected to login page once the transaction completes, please wait...</h5>
+				</center>
+			</div>
+		</div>
+		</div>
 		<form id="credform">
 			<label>Phone Number</label>
 			<input type="text" name="phone" class="form-control" placeholder="e.g 0712345678" value="@if(isset(Auth::user()->phone ))0{{ Auth::user()->phone }}@else {{ '' }}@endif">
@@ -19,14 +36,11 @@
 			<div class="input-group mb-3">
 			  <select class="custom-select" name="plan" id="plan">
 			    <option value="">Choose bundle plan...</option>
-			    <option value="50mbs">50MBs @ Kes 10/-</option>
-			    <option value="100mbs">100MBs @ Kes 20/-</option>
-			    <option value="250mbs">250MBs @ Kes 40/-</option>
-			    <option value="500mbs">500MBs @ Kes 50/-</option>
-			    <option value="1gb">1 GB @ Kes 100/-</option>
-			    <option value="2gb">2 GB @ Kes 200/-</option>
-			    <option value="5gb">5 GB @ Kes 500/-</option>
-			    <option value="monthlyplan">1 Month unlimited @ Kes 1500/-</option>
+			    @forelse($plans as $p)
+			    <option value="{{ $p->planname }}">{{ $p->plantitle }} @ Kes {{ $p->cost }}</option>
+			    @empty
+			    <option value="">No Plans available</option>
+			    @endforelse
 			  </select>
 			</div>
 			<label>Amount</label>
@@ -42,7 +56,22 @@
 			{{ csrf_field() }}
 		</form>
 	</div>
-
+ <div class="modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title font-weight-bold">User Freedom</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Create your own username and password by signing up</p>
+        <center><a href="{{ route('user.signup') }}" class="btn btn-lg btn-primary rounded-pill"><i class="fa fa-rocket"></i>&nbsp;click here to signup</a></center>
+      </div>
+    </div>
+  </div>
+</div>
 @endsection
 @section('scripts')
 <script type="text/javascript">
@@ -61,6 +90,9 @@
 					$(".btn-success").empty().html('processing, please wait...').addClass('btn-danger');
 					$("#timer").html( 0 + ":" + 45);
 					startTimer();
+					$("#timer").addClass("d-block");
+					$("#credform").hide();
+					$(".procpar").show();
 					var req=$.ajax({
 						method:'POST',
 						url:"{{ route('user.post.credentials') }}",
@@ -70,7 +102,12 @@
 						if(data=='error'){
 							$("#timer").empty().removeClass('d-block').fadeOut();
 						$(".btn-danger").empty().html('Failed!');
+						$(".loader").hide();
+						$("h4").empty().html("Failed").addClass('text-danger');
 						$(".err").html("Your transaction could not be completed, check your phone number and try again").addClass("alert alert-danger p-3");
+						setTimeout(function(){
+							window.location.replace('http://hewanet.wifi/login');
+						},10000);
 						}else{
 							$("#timer").empty().removeClass('d-block').fadeOut();;
 							$(".btn-danger").empty().html('completed').removeClass('btn-danger').addClass("btn-success");
@@ -126,6 +163,16 @@
 		  if (sec < 0) {sec = "59"};
 		  return sec;
 		}
+
+
+		if(myphone==""){
+			$(".modal").fadeIn(3000);
+		}
+	        
+	        $(".close").click(function(){
+	          $(".modal").fadeOut(1000);
+	     })
 	})
+	
 </script>
 @endsection

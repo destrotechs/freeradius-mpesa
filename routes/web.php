@@ -15,12 +15,13 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::get('/credentials','defaultUserController@credentials')->name('user.credentials');
+Route::get('/err','defaultUserController@Error')->name('user.error');
 Route::post('/credentials','paymentController@postPayToGetCredentials')->name('user.post.credentials');
 Route::get('/bundlebalance','defaultUserController@bundlebalance')->name('user.balance');
 Route::post('/bundlebalance','defaultUserController@fetchBalance')->name('user.check.balance');
 Route::get('/allplans','defaultUserController@getAllPlans')->name('user.allplans');
 
-
+Route::get('/buybundle/{plan}','defaultUserController@buyBundlePlan')->name('user.buybundleplan');
 Route::group(['middleware'=>'guest'], function(){
 	Route::post('/signup','defaultUserController@postSignup')->name('user.post.signup');
 	Route::post('/signin','defaultUserController@postSignin')->name('user.post.signin');
@@ -35,6 +36,14 @@ Route::group(['middleware'=>'auth'], function(){
 	Route::post('/changephone','HomeController@postChangePhone')->name('user.post.changephone');
 	Route::get('/transactions','HomeController@getTransactions')->name('user.transactions');
 	});
-//Auth::routes();
+//admin routes
 
-//Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/admin/destro','adminController@getIndex')->name('admin.index');
+Route::get('/admin/destro/plans','adminController@getPlans')->name('admin.plans');
+Route::get('/admin/destro/customers','adminController@getCustomers')->name('admin.customers');
+Route::get('/admin/destro/payments','adminController@getPayments')->name('admin.payments');
+Route::get('/admin/destro/groups&attributes','adminController@getGroupsAndAttr')->name('admin.groupsandattributes');
+Route::post('/admin/destro/customer','adminController@postCustomer')->name('admin.post.customer');
+Route::post('/admin/destro/plans','adminController@postPlan')->name('admin.post.plan');
+Route::post('/admin/destro/searchuser','adminController@postSearchUser')->name('admin.search.user');
+Route::post('admin/destro/assignattrs','adminController@postGroupsAndAttr')->name('admin.post.groupandattribute');

@@ -19,10 +19,13 @@ class defaultUserController extends Controller
         if($request->session()->has('error')){
             Alert::error($request->session()->get('error'));  
         }
-    	return view('users.index');
+        $plans=DB::table('bundle_plans')->limit(3)->get();
+        
+    	return view('users.index',compact('plans'));
     }
     public function credentials(){
-    	return view('users.credentials');
+        $plans=DB::table('bundle_plans')->get();
+    	return view('users.credentials',compact('plans'));
     }
     public function signup(Request $request){
         if($request->session()->has('success_message')){
@@ -97,10 +100,8 @@ class defaultUserController extends Controller
             foreach ($userdata as $key => $data) {
                 $totalbytesrecord=$data->value;
             }
-            $totaldownbs=1024;
-            //DB::table('radacct')->where('username','=',$username)->sum('AcctInputOctets');
-            $totalupbs=1024;
-            //DB::table('radacct')->where('username','=',$username)->sum('AcctOutputOctets');
+            $totaldownbs=DB::table('radacct')->where('username','=',$username)->sum('AcctInputOctets');
+            $totalupbs=DB::table('radacct')->where('username','=',$username)->sum('AcctOutputOctets');
             $mbsused=($totaldownbs+$totalupbs);
 
             $totalbytesrecord=($totalbytesrecord/(1024*1024));
@@ -120,6 +121,14 @@ class defaultUserController extends Controller
         if($request->session()->has('error')){
             Alert::error($request->session()->get('error'));  
         }
-        return view('users.bundleplans');
+        $plans=DB::table('bundle_plans')->get();
+        return view('users.bundleplans',compact('plans'));
+    }
+    public function buyBundlePlan(Request $request,$id){
+        $plan=DB::table('bundle_plans')->where('id','=',$id)->get();
+        return view('users.buybundle',compact('plan'));
+    }
+    public function Error(){
+        return view('users.ment');
     }
 }

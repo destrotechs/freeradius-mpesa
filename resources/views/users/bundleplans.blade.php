@@ -68,7 +68,54 @@
         {{ session('success_message') }}
     </div>
 @endif
-<div class="row p-2 bg-light">
+@forelse($plans->chunk(3) as $plan)
+<div class="row bg-light">
+	@foreach($plan as $p)
+	<div class="col-md-4">
+		<div class="card mb-3" style="max-width: 540px;">
+		  <div class="row no-gutters">
+		    <div class="col-md-4 d-flex justify-content-center bg-navy text-white">
+		      <h4 class="text-white mt-5">{{ $p->plantitle }}<br> Kes {{ $p->cost}}</h4>
+		    </div>
+		    <div class="col-md-8">
+		      <div class="card-body">
+		        <h5 class="card-title">{{ $p->plantitle }}/Kes{{ $p->cost }}/-</h5>
+		        <p class="card-text">{{ $p->desc }}</p>
+		        <input type="hidden" name="plan" value="{{ $p->planname }}">
+			          	<input type="hidden" name="amount" value="{{ $p->cost }}">
+		        <hr>
+		        <p class="card-text d-flex justify-content-end"><a href="{{ route('user.buybundleplan',['plan'=>$p->id]) }}" class="btn btn-outline-primary btn-md">Purchase</a></p>
+		      </div>
+		    </div>
+		  </div>
+		</div>
+		<!--<div class="card-deck mb-3 text-center">
+			    <div class="card mb-4 shadow-sm">
+			      <div class="card-header">
+			        <h4 class="my-0 font-weight-normal">{{ $p->plantitle }}</h4>
+			      </div>
+			      <div class="card-body">
+			        <h1 class="card-title pricing-card-title">{{ $p->plantitle }}<small class="text-muted">/ Kes {{ $p->cost }}</small></h1>
+			        <ul class="list-unstyled mt-3 mb-4">
+			          <li>{{ $p->desc }}</li>
+			          <li>
+			          	<input type="hidden" name="plan" value="{{ $p->planname }}">
+			          	<input type="hidden" name="amount" value="{{ $p->cost }}">
+			          </li>
+			        </ul>
+			        <a href="{{ route('user.buybundleplan',['plan'=>$p->id]) }}" class="btn btn-primary btn-lg">Purchase</a>
+			        <small></small>
+			      </div>
+			    </div>
+			</div>
+		</div>-->
+	</div>
+	@endforeach
+</div>
+@empty
+<div class="alert alert-danger">No plans available yet</div>
+@endforelse
+<!--<div class="row p-2 bg-light">
 	<div class="col-md-3">
 		<form method="post" action="{{ route('user.post.credentials') }}">
 			<div class="card text-center">
@@ -232,7 +279,7 @@
 			{{ csrf_field() }}
 		</form>
 	</div>
-</div>
+</div>-->
 @endsection
 @section('scripts')
 <script type="text/javascript">

@@ -11,7 +11,7 @@ class Mpesa extends Model
   
 		  $curl = curl_init();
 		  curl_setopt($curl, CURLOPT_URL, $url);
-		  $credentials = base64_encode('CONSUMER_KEY:CONSUMER_SECRET');
+		  $credentials = base64_encode('KOnqrBLeALMObbmwaVz7qGdOYHLAG1rr:AIePPGkOaGUQ0MGO');
 		  curl_setopt($curl, CURLOPT_HTTPHEADER, array('Authorization: Basic '.$credentials)); //setting a custom header
 		  curl_setopt($curl, CURLOPT_HEADER, false);
 		  curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
@@ -26,26 +26,26 @@ class Mpesa extends Model
 		$transactiontype='CustomerPayBillOnline';
 		$partyA=$phone;
 		$partyB='174379';
-		$callbackurl="CALLBACK URL";
-		$accountreference="ACCOUNT REFERENCE";
-		$transactiondesc="DESC";
-		$remark='REMARK';
+		$callbackurl="https://hewanet.co.ke/churchcallback/";
+		$accountreference="HEWANET";
+		$transactiondesc="plan payment";
+		$remark='pay subscription';
 		$url='https://sandbox.safaricom.co.ke/mpesa/stkpush/v1/processrequest';
 		
 		$timestamp='20'.date("ymdhis");
-    	$password=base64_encode('SHORTCODE'.'LIPA_NA_MPESA_KEY'.$timestamp);
+    	$password=base64_encode('174379'.'bfb279f9aa9bdbcf158e97dd71a467cd2e0c893059b10f78e6b72ada1ed2c919'.$timestamp);
 		$ch=curl_init();
 		curl_setopt($ch, CURLOPT_URL, $url);
   		curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type:application/json','Authorization:Bearer '.$token));
 
 		$postData=array(
-			'BusinessShortCode'=>'SHORTCODE',
+			'BusinessShortCode'=>'174379',
 			'Password'=>$password,
 			'Timestamp'=>$timestamp,
 			'TransactionType'=>$transactiontype,
 			'Amount'=>$amount,
 			'PartyA'=>$partyA,
-			'PartyB'=>'SHORTCODE',
+			'PartyB'=>'174379',
 			'PhoneNumber'=>$phone,
 			'CallBackURL'=>$callbackurl,
 			'AccountReference'=>$accountreference,
@@ -58,7 +58,6 @@ class Mpesa extends Model
 		curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
 		curl_setopt($ch, CURLOPT_HEADER, false);
 		$curl_response=curl_exec($ch);
-		//dd($curl_response);
 		 
 		$mycode=json_decode($curl_response,true)['ResponseCode'];
 		if($mycode==0){
@@ -79,7 +78,7 @@ class Mpesa extends Model
 
 	    $curl_post_data = array(
 	        'BusinessShortCode' => '174379',
-	        'Password' => base64_encode('1SHORTCODE'.'LIPA_NA_MPESA_KEY'.$timestamp),
+	        'Password' => base64_encode('174379'.'bfb279f9aa9bdbcf158e97dd71a467cd2e0c893059b10f78e6b72ada1ed2c919'.$timestamp),
 	        'Timestamp' => $timestamp,
 	        'CheckoutRequestID' => $checkoutid,
 	    );
@@ -105,7 +104,7 @@ class Mpesa extends Model
 	    }
 	}
 	public static function callback($amnt){
-		$callbackData=json_decode(trim(file_get_contents("PATH TO YOUR CALL BACK FILE")),true);		
+		$callbackData=json_decode(trim(file_get_contents("https://hewanet.co.ke/churchcallback/callback.txt")),true);		
 		 
         if($callbackData!=NULL && $callbackData!=""){
            return $callbackData;
@@ -128,8 +127,8 @@ class Mpesa extends Model
 	    //Fill in the request parameters with valid values
 	    'ShortCode' => '600460',
 	    'ResponseType' => 'Completed',
-	    'ConfirmationURL' => 'YOUR CONFIRMATION URL',
-	    'ValidationURL' => 'hYOUR VALIDATION URL'
+	    'ConfirmationURL' => 'https://hewanet.co.ke/churchconfirmation/index.php',
+	    'ValidationURL' => 'https://hewanet.co.ke/churchvalidation/index.php'
 	  );
 	  
 	  $data_string = json_encode($curl_post_data);

@@ -13,6 +13,44 @@
         {{ session('error') }}
     </div>
 @endif
+
+<div class="row">
+	@forelse($plans as $key=> $p)
+	<div class="col-md-3">
+		<div class="card-deck mb-3 text-center">
+			    <div class="card mb-4 shadow-sm">
+			      <div class="card-header">
+			        <h4 class="my-0 font-weight-normal">{{ $p->plantitle }}</h4>
+			      </div>
+			      <div class="card-body">
+			        <h1 class="card-title pricing-card-title">{{ $p->plantitle }}<small class="text-muted">/ Kes {{ $p->cost }}</small></h1>
+			        <ul class="list-unstyled mt-3 mb-4">
+			          <li>{{ $p->desc }}</li>
+			          <li>
+			          	<input type="hidden" name="plan" value="{{ $p->planname }}">
+			          	<input type="hidden" name="amount" value="{{ $p->cost }}">
+			          </li>
+			        </ul>
+			        <a href="{{ route('user.buybundleplan',['plan'=>$p->id]) }}" class="btn btn-primary btn-lg">Purchase</a>
+			        <small></small>
+			      </div>
+			    </div>
+			</div>
+	</div>
+	@empty
+<div class="alert alert-danger">No plans available yet</div>
+	@endforelse
+	<div class="col-md-3 shadow-sm">
+		<h4>&star;&nbsp;Tips</h4><hr>
+		<marquee behavior="scroll" direction="up" scrollamount="3">
+			<ol>
+			<li>Daily plan gives a user unlimited access to internet for 24 hours at a downspeed of 1 mb/s.</li>
+			<li>Weekly plan gives a user unlimited access to internet for 7 days at a downspeed of 1 mb/s.</li>
+			<li>Monthly plan gives a user unlimited access to internet for 30 days at a downspeed of 1 mb/s.</li>
+		</ol></marquee>
+	</div>
+</div>
+<!--end first row-->
 	<div class="row">
 
 		<div class="col-md-4">
@@ -33,7 +71,9 @@
 			        </ul>
 			        <input type="text" required="required" name="phone" class="form-control" placeholder="enter phone number" style="display: none;"><hr>
 
-			        <button type="button" class="btn btn-lg btn-block btn-outline-primary purchase">Purchase</button><small></small>
+			        {{-- <button type="button" class="btn btn-lg btn-block btn-outline-primary purchase">Purchase</button> --}}
+			        <a href="{{ route('user.buybundleplan',['plan'=>'50mbs']) }}" class="btn btn-primary btn-lg">Purchase</a>
+			        <small></small>
 			      </div>
 			    </div>
 			</div>
@@ -92,7 +132,7 @@
 		</div>
 	</div>
 	<hr>
-	<span class="text-center font-weight-bold"><a href="{{ route('user.allplans') }}"><i class="fa fa-angle-right"></i> More Deals...</a></span>
+	<span class="text-center font-weight-bold"><a class="btn btn-primary btn-lg" href="{{ route('user.allplans') }}"><i class="fa fa-angle-right"></i> More Bundle Deals...</a></span>
 	<hr>
 	<div class="row">
 		<div class="col-md-6">

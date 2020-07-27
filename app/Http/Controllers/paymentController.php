@@ -89,25 +89,15 @@ class paymentController extends Controller
 
 	    		//add user to the group of these purchased mbs
 	    		if($plan=='50mbs'){
-<<<<<<< HEAD
-	    			$initialbundle=0;
-		    		$totalbundle=(50*1024*1024);
-=======
 	    			$initialbundle=0;		    		
 		    		$bundlebought=(50*1024*1024);
 		    		$totalbundle=$bundlebought;
 		    		$remainder=0;
->>>>>>> 31c19eb... updating files, all
 
 		    		if (count($userhasboughtmbsbefore)>0) {
 		    			//if yes, query the max-all-mb value in radreply and radcheck,session-timeout in radreply andacct-interim interval in radreply and add the newly purchased bundle
 		    			foreach ($userhasboughtmbsbefore as $key => $mb) {
 		    				$initialbundle=$mb->value;
-<<<<<<< HEAD
-		    				$totalbundle+=$initialbundle;
-		    			}
-		    			$deleteuser=DB::table('radreply')->where('username','=',$username)->delete();
-=======
 		    			}
 		    			$deleteuser=DB::table('radreply')->where('username','=',$username)->delete();
 
@@ -125,7 +115,6 @@ class paymentController extends Controller
 		    				$totalbundle=$bundlebought+$remainder;
 		    			}
 		    			
->>>>>>> 31c19eb... updating files, all
 		    			
 		    		}
 		    		//update the record by creating a new record
@@ -141,25 +130,15 @@ class paymentController extends Controller
 		    			
 	    		}
 	    		else if($plan=='100mbs'){
-<<<<<<< HEAD
-	    			$initialbundle=0;
-		    		$totalbundle=(100*1024*1024);
-=======
 	    			$initialbundle=0;		    		
 		    		$bundlebought=(100*1024*1024);
 		    		$totalbundle=$bundlebought;
 		    		$remainder=0;
->>>>>>> 31c19eb... updating files, all
 
 		    		if (count($userhasboughtmbsbefore)>0) {
 		    			//if yes, query the max-all-mb value in radreply and radcheck,session-timeout in radreply andacct-interim interval in radreply and add the newly purchased bundle
 		    			foreach ($userhasboughtmbsbefore as $key => $mb) {
 		    				$initialbundle=$mb->value;
-<<<<<<< HEAD
-		    				$totalbundle+=$initialbundle;
-		    			}
-		    			$deleteuser=DB::table('radreply')->where('username','=',$username)->delete();
-=======
 		    			}
 		    			$deleteuser=DB::table('radreply')->where('username','=',$username)->delete();
 
@@ -177,7 +156,6 @@ class paymentController extends Controller
 		    				$totalbundle=$bundlebought+$remainder;
 		    			}
 		    			
->>>>>>> 31c19eb... updating files, all
 		    			
 		    		}
 		    		//update the record by creating a new record
@@ -193,25 +171,15 @@ class paymentController extends Controller
 	    			
 	    		}
 	    		else if($plan=='250mbs'){
-<<<<<<< HEAD
-	    			$initialbundle=0;
-		    		$totalbundle=(250*1024*1024);
-=======
 	    			$initialbundle=0;		    		
 		    		$bundlebought=(250*1024*1024);
 		    		$totalbundle=$bundlebought;
 		    		$remainder=0;
->>>>>>> 31c19eb... updating files, all
 
 		    		if (count($userhasboughtmbsbefore)>0) {
 		    			//if yes, query the max-all-mb value in radreply and radcheck,session-timeout in radreply andacct-interim interval in radreply and add the newly purchased bundle
 		    			foreach ($userhasboughtmbsbefore as $key => $mb) {
 		    				$initialbundle=$mb->value;
-<<<<<<< HEAD
-		    				$totalbundle+=$initialbundle;
-		    			}
-		    			$deleteuser=DB::table('radreply')->where('username','=',$username)->delete();
-=======
 		    			}
 		    			$deleteuser=DB::table('radreply')->where('username','=',$username)->delete();
 
@@ -229,7 +197,6 @@ class paymentController extends Controller
 		    				$totalbundle=$bundlebought+$remainder;
 		    			}
 		    			
->>>>>>> 31c19eb... updating files, all
 		    			
 		    		}
 		    		//update the record by creating a new record
@@ -245,25 +212,15 @@ class paymentController extends Controller
 	    			
 	    		}
 	    		else if($plan=='500mbs'){
-<<<<<<< HEAD
-	    			$initialbundle=0;
-		    		$totalbundle=(500*1024*1024);
-=======
 	    			$initialbundle=0;		    		
 		    		$bundlebought=(500*1024*1024);
 		    		$totalbundle=$bundlebought;
 		    		$remainder=0;
->>>>>>> 31c19eb... updating files, all
 
 		    		if (count($userhasboughtmbsbefore)>0) {
 		    			//if yes, query the max-all-mb value in radreply and radcheck,session-timeout in radreply andacct-interim interval in radreply and add the newly purchased bundle
 		    			foreach ($userhasboughtmbsbefore as $key => $mb) {
 		    				$initialbundle=$mb->value;
-<<<<<<< HEAD
-		    				$totalbundle+=$initialbundle;
-		    			}
-		    			$deleteuser=DB::table('radreply')->where('username','=',$username)->delete();
-=======
 		    			}
 		    			$deleteuser=DB::table('radreply')->where('username','=',$username)->delete();
 
@@ -281,7 +238,6 @@ class paymentController extends Controller
 		    				$totalbundle=$bundlebought+$remainder;
 		    			}
 		    			
->>>>>>> 31c19eb... updating files, all
 		    			
 		    		}
 		    		//update the record by creating a new record
@@ -298,25 +254,15 @@ class paymentController extends Controller
 	    			
 	    		}
 	    		else if($plan=='1gb'){
-<<<<<<< HEAD
-	    			$initialbundle=0;
-		    		$totalbundle=(1024*1024*1024);
-=======
 	    			$initialbundle=0;		    		
 		    		$bundlebought=(1024*1024*1024);
 		    		$totalbundle=$bundlebought;
 		    		$remainder=0;
->>>>>>> 31c19eb... updating files, all
 
 		    		if (count($userhasboughtmbsbefore)>0) {
 		    			//if yes, query the max-all-mb value in radreply and radcheck,session-timeout in radreply andacct-interim interval in radreply and add the newly purchased bundle
 		    			foreach ($userhasboughtmbsbefore as $key => $mb) {
 		    				$initialbundle=$mb->value;
-<<<<<<< HEAD
-		    				$totalbundle+=$initialbundle;
-		    			}
-		    			$deleteuser=DB::table('radreply')->where('username','=',$username)->delete();
-=======
 		    			}
 		    			$deleteuser=DB::table('radreply')->where('username','=',$username)->delete();
 
@@ -334,7 +280,6 @@ class paymentController extends Controller
 		    				$totalbundle=$bundlebought+$remainder;
 		    			}
 		    			
->>>>>>> 31c19eb... updating files, all
 		    			
 		    		}
 		    		//update the record by creating a new record
@@ -349,25 +294,15 @@ class paymentController extends Controller
 		    			);
 	    			
 	    		}else if($plan=='2gb'){
-<<<<<<< HEAD
-	    			$initialbundle=0;
-		    		$totalbundle=(2048*1024*1024);
-=======
 	    			$initialbundle=0;		    		
 		    		$bundlebought=(2048*1024*1024);
 		    		$totalbundle=$bundlebought;
 		    		$remainder=0;
->>>>>>> 31c19eb... updating files, all
 
 		    		if (count($userhasboughtmbsbefore)>0) {
 		    			//if yes, query the max-all-mb value in radreply and radcheck,session-timeout in radreply andacct-interim interval in radreply and add the newly purchased bundle
 		    			foreach ($userhasboughtmbsbefore as $key => $mb) {
 		    				$initialbundle=$mb->value;
-<<<<<<< HEAD
-		    				$totalbundle+=$initialbundle;
-		    			}
-		    			$deleteuser=DB::table('radreply')->where('username','=',$username)->delete();
-=======
 		    			}
 		    			$deleteuser=DB::table('radreply')->where('username','=',$username)->delete();
 
@@ -385,7 +320,6 @@ class paymentController extends Controller
 		    				$totalbundle=$bundlebought+$remainder;
 		    			}
 		    			
->>>>>>> 31c19eb... updating files, all
 		    			
 		    		}
 		    		//update the record by creating a new record
@@ -400,25 +334,15 @@ class paymentController extends Controller
 		    			);
 	    			
 	    		}else if($plan=='5gb'){
-<<<<<<< HEAD
-	    			$initialbundle=0;
-		    		$totalbundle=(5120*1024*1024);
-=======
 	    			$initialbundle=0;		    		
 		    		$bundlebought=(5120*1024*1024);
 		    		$totalbundle=$bundlebought;
 		    		$remainder=0;
->>>>>>> 31c19eb... updating files, all
 
 		    		if (count($userhasboughtmbsbefore)>0) {
 		    			//if yes, query the max-all-mb value in radreply and radcheck,session-timeout in radreply andacct-interim interval in radreply and add the newly purchased bundle
 		    			foreach ($userhasboughtmbsbefore as $key => $mb) {
 		    				$initialbundle=$mb->value;
-<<<<<<< HEAD
-		    				$totalbundle+=$initialbundle;
-		    			}
-		    			$deleteuser=DB::table('radreply')->where('username','=',$username)->delete();
-=======
 		    			}
 		    			$deleteuser=DB::table('radreply')->where('username','=',$username)->delete();
 
@@ -436,7 +360,6 @@ class paymentController extends Controller
 		    				$totalbundle=$bundlebought+$remainder;
 		    			}
 		    			
->>>>>>> 31c19eb... updating files, all
 		    			
 		    		}
 		    		//update the record by creating a new record
@@ -475,8 +398,6 @@ class paymentController extends Controller
 		    			['value'=>$dateToDisconnect,'op'=>':=']
 		    		);
 	    			
-<<<<<<< HEAD
-=======
 	    		}else if($plan=='dailyplan'){
 	    			$year=date("Y");
 					$month=date("n");
@@ -524,7 +445,6 @@ class paymentController extends Controller
 		    			['username'=>$username,'attribute'=>'WISPr-Session-Terminate-Time'],
 		    			['value'=>$dateToDisconnect,'op'=>':=']
 		    		);
->>>>>>> 31c19eb... updating files, all
 	    		}
 	    		
 	    		//send username and password to the user phone number
@@ -538,11 +458,7 @@ class paymentController extends Controller
 	                'api_key'=>'c04EhaD3ipcTGztn5albuExDHTdLCRPzP0BYUNYYF32UxShhDc',
 	                'sender'=>'SMARTLINK',
 	                'to'=>$p,
-<<<<<<< HEAD
-	                'message'=>'Your HEWANET internet access codes are: Username : '.$username.", Password :".$password,
-=======
 	                'message'=>'Your HEWANET internet access codes are: Username : '.$username.', Password : '.$password,
->>>>>>> 31c19eb... updating files, all
 	                'msgtype'=>'5',
 	                'dlr'=>'1',
 	            );

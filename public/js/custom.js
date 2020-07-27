@@ -1,15 +1,10 @@
 $(document).ready(function(){
-   $('li a').click(function(){
-     $('li a').each(function(a){
-       $( this ).removeClass('selectedclass')
-     });
-     $( this ).addClass('selectedclass');
-   });
   
-  $('ul a').click(function(){
-     $('ul a').each(function(a){
-      $( this ).removeClass('selectedclass')
-     });
-     $( this ).addClass('selectedclass');
-   });
+  $(".btn-primary").on("mouseover",function(){
+    $(this).parent('div').addClass('bg-darkblue');
+  });
+   $(".btn-primary").on("mouseout",function(){
+    $(this).parent('div').removeClass('bg-darkblue');
+  });
+   $(".card").fadeIn(1000);
 });

@@ -24,38 +24,31 @@
 
 </head>
 <body>
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12 mt-3 d-flex justify-content-center">
-                <a href="{{ route('user.index') }}">
-                    <img src="{{ asset('images/2.png') }}" height="100" width="100">
-                </a>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-12 mt-2">
-               <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm">
-                 @if(isset(Auth::user()->username))
-                  <a class="navbar-brand" href="{{ route('home') }}"><span class="fa fa-home fa-2x"></span></a>
+  <div class="container-fluid">
+    <nav class="navbar navbar-expand-md fixed-top mb-5 navbar-light bg-white shadow-sm">
+            <div class="container">
+                @if(isset(Auth::user()->username))
+                  <a class="navbar-brand" href="{{ route('home') }}"><img src="{{ asset('images/3.PNG') }}" height="60" width="100"></a>
                   @else
-                  <a class="navbar-brand" href="{{ route('user.index') }}"><span class="fa fa-home fa-2x"></span></a>
+                  <a class="navbar-brand" href="{{ route('user.index') }}"><img src="{{ asset('images/3.png') }}" height="60" width="100"></a>
                   @endif
-                  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
-                  </button>
-                  <div class="collapse navbar-collapse" id="navbarNav">
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
-                      <!-- <li class="nav-item active">
-                        <a class="btn btn-light" href="#">Home <span class="sr-only">(current)</span></a>
-                      </li> -->
-                      
+
                     </ul>
-                    <ul class="navbar-nav ml-auto">
+
+                    <!-- Right Side Of Navbar -->
+                     <ul class="navbar-nav ml-auto">
                           
+                          @if(!isset(Auth::user()->username))
                           <li class="nav-item">
                             <a class="nav-link" href="{{ route('user.balance') }}"><i class="fa fa-search"></i> check balance</a>
                           </li>
-                          @if(!isset(Auth::user()->username))
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('user.signup') }}"><i class="fa fa-user"></i> Sign up</a>
                           </li>
@@ -67,12 +60,6 @@
                             <a class="nav-link" href="{{ route('user.credentials') }}"><i class="fa fa-search"></i> Get Credentials</a>
                           </li>
                           @else
-                          <li class="nav-item">
-                            <a class="nav-link" href="{{ route('user.changephone') }}"><i class="fa fa-phone"></i> Change Phone</a>
-                          </li>
-                          <li class="nav-item">
-                            <a class="nav-link" href="{{ route('user.transactions') }}"><i class="fa fa-eye"></i> Customer Transactions</a>
-                          </li>
                           <li class="nav-item">
                             <a class="nav-link" href="{{ route('user.allplans') }}"><i class="fa fa-eye"></i> See Bundle Plans</a>
                           </li>
@@ -87,18 +74,23 @@
                               </a>
 
                               <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                <a class="dropdown-item" href="{{ route('customer.logout') }}">logout</a>
+                                <a class="dropdown-item" href="{{ route('user.changephone') }}"><i class="fa fa-phone"></i>&nbsp;Change Phone</a>
+                                <a class="dropdown-item" href="{{ route('user.transactions') }}"><i class="fa fa-bell"></i>&nbsp;My Transactions</a>
+                                <a class="dropdown-item" href="{{ route('user.balance') }}"><i class="fa fa-cloud"></i>&nbsp;Bundle Balance</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="{{ route('customer.logout') }}"><i class="fa fa-sign-out"></i>&nbsp;logout</a>
                               </div>
                             </div>
                           </li>
                             @endif
                     </ul>
-                  </div>
-                </nav>
+                </div>
             </div>
-        </div>
-<hr>
-        <main class="py-4">
+        </nav>
+  </div>
+    <div class="container">
+    <hr>
+        <main class="py-4 shadow-sm" style="margin-top: 60px;">
             @yield('content')
         </main>
     </div>
@@ -109,8 +101,10 @@
       </div>
     </footer>
     </div>
+ 
     <script src="{{ asset('js/app.js') }}" type="text/javascript"></script>
     <script src="{{ asset('utls/js/argon.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('js/custom.js') }}" type="text/javascript"></script>
     @include('sweetalert::alert')
     @yield('scripts')
 
