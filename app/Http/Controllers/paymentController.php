@@ -8,6 +8,7 @@ use App\Mpesa;
 use DB;
 use Auth;
 use Validator;
+use App\SendMessage;
 class paymentController extends Controller
 {
     public function postPayToGetCredentials(Request $request){
@@ -76,6 +77,7 @@ class paymentController extends Controller
 	    		
 	    		//check if username already exist in radcheck
 	    		$userexist=DB::table('radcheck')->where('username','=',$username)->get();
+
 	    		if (count($userexist)==0) {
 	    			//if yes, dont insert another record
 	    			$user=DB::table('radcheck')->insert(['username'=>$username,'attribute'=>'Cleartext-Password','op'=>':=','value'=>$password]);
@@ -120,8 +122,6 @@ class paymentController extends Controller
 		    		//update the record by creating a new record
 		    			$userupdatereply=DB::table('radreply')->insert([
 		    				['username'=>$username,'attribute'=>'Max-All-MB','op'=>':=','value'=>$totalbundle],
-		    				['username'=>$username,'attribute'=>'Session-Timeout','op'=>':=','value'=>600],
-		    				['username'=>$username,'attribute'=>'Acct-Interim-Interval','op'=>':=','value'=>60]
 		    			]);
 		    			$userupdatecheck=DB::table('radcheck')->updateOrInsert(
 		    				['username'=>$username,'attribute'=>'Max-All-MB'],
@@ -161,9 +161,7 @@ class paymentController extends Controller
 		    		//update the record by creating a new record
 		    			$userupdatereply=DB::table('radreply')->insert([
 		    				['username'=>$username,'attribute'=>'Max-All-MB','op'=>':=','value'=>$totalbundle],
-		    				['username'=>$username,'attribute'=>'Session-Timeout','op'=>':=','value'=>1200],
-		    				['username'=>$username,'attribute'=>'Acct-Interim-Interval','op'=>':=','value'=>60]
-		    			]);
+		    				]);
 		    			$userupdatecheck=DB::table('radcheck')->updateOrInsert(
 		    				['username'=>$username,'attribute'=>'Max-All-MB'],
 		    				['op'=>':=','value'=>$totalbundle]
@@ -202,8 +200,6 @@ class paymentController extends Controller
 		    		//update the record by creating a new record
 		    			$userupdatereply=DB::table('radreply')->insert([
 		    				['username'=>$username,'attribute'=>'Max-All-MB','op'=>':=','value'=>$totalbundle],
-		    				['username'=>$username,'attribute'=>'Session-Timeout','op'=>':=','value'=>1800],
-		    				['username'=>$username,'attribute'=>'Acct-Interim-Interval','op'=>':=','value'=>60]
 		    			]);
 		    			$userupdatecheck=DB::table('radcheck')->updateOrInsert(
 		    				['username'=>$username,'attribute'=>'Max-All-MB'],
@@ -449,27 +445,10 @@ class paymentController extends Controller
 	    		
 	    		//send username and password to the user phone number
 	    		$p='254'.substr($phone, 1);
-	            $smsgatewaUrl='https://sms.movesms.co.ke/api/compose?';
-	            $curl=curl_init();
-	            curl_setopt($curl, CURLOPT_URL, $smsgatewaUrl);
-	            curl_setopt($curl, CURLOPT_HTTPHEADER, array('Content-Type:application/json'));
-	            $data_string = array(
-	                'username'=>'HewaNet',
-	                'api_key'=>'c04EhaD3ipcTGztn5albuExDHTdLCRPzP0BYUNYYF32UxShhDc',
-	                'sender'=>'SMARTLINK',
-	                'to'=>$p,
-	                'message'=>'Your HEWANET internet access codes are: Username : '.$username.', Password : '.$password,
-	                'msgtype'=>'5',
-	                'dlr'=>'1',
-	            );
-	            $data=json_encode($data_string);
-	            curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-	            curl_setopt($curl, CURLOPT_POST, true);
-	            curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
-	            curl_setopt($curl, CURLOPT_HEADER, false);
-	            $curl_response=curl_exec($curl);
-	            $resultcode=$curl_response;
-	            if($resultcode=='Message Sent:1701'){
+	    		$message='Your HEWANET internet access codes are: Username : '.$username.', Password : '.$password;
+	    		$sent=SendMessage::sendMessage($p,$message);
+	            
+	            if($sent==true){
 	            	if($request->ajax()){
 	            		echo "Your internet access credentials are username :".$username." Password :".$password." Text Message has been sent successfully, if you don't receive the sms within 5 minutes, please contact admin";
 	            	}else{

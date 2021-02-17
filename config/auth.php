@@ -38,7 +38,7 @@ return [
     'guards' => [
         'web' => [
             'driver' => 'session',
-            'provider' => 'tempaccount',
+            'provider' => 'users',
         ],
 
         'api' => [
@@ -75,10 +75,6 @@ return [
         //     'driver' => 'database',
         //     'table' => 'users',
         // ],
-        'tempaccount'=>[
-            'driver' => 'eloquent',
-            'model' =>App\Customer::class,
-        ]
     ],
 
     /*
@@ -99,12 +95,6 @@ return [
     'passwords' => [
         'users' => [
             'provider' => 'users',
-            'table' => 'password_resets',
-            'expire' => 60,
-            'throttle' => 60,
-        ],
-        'customers' => [
-            'provider' => 'tempaccount',
             'table' => 'password_resets',
             'expire' => 60,
             'throttle' => 60,
