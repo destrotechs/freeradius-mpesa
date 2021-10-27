@@ -12,9 +12,9 @@ class SendMessage extends Model
 	            curl_setopt($curl, CURLOPT_URL, $smsgatewaUrl);
 	            curl_setopt($curl, CURLOPT_HTTPHEADER, array('Content-Type:application/json'));
 	            $data_string = array(
-	                'username'=>'HewaNet',
-	                'api_key'=>'c04EhaD3ipcTGztn5albuExDHTdLCRPzP0BYUNYYF32UxShhDc',
-	                'sender'=>'SMARTLINK',
+	                'username'=>'',
+	                'api_key'=>'',
+	                'sender'=>'',
 	                'to'=>$phone,
 	                'message'=>$message,
 	                'msgtype'=>'5',
